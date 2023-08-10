@@ -1,0 +1,41 @@
+@import "../node_modules/cesium/Build/Cesium/Widgets/widgets.css";
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+#toolbar {
+  background: rgba(42, 42, 42, 0.8);
+  padding: 4px;
+  border-radius: 4px;
+}
+
+#toolbar input {
+  vertical-align: middle;
+  padding-top: 2px;
+  padding-bottom: 2px;
+}
+
+#toolbar .header {
+  font-weight: bold;
+}
+
+#cesiumContainer {
+  position: absolute;
+  width: "100%";
+  height: "100%";
+}
+
+#customSelectionTool {
+  position: relative;
+}
