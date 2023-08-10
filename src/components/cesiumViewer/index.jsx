@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import {Ion} from 'cesium';
-import CZMLViewer from './CZMLViewer';
+import { initializeCZMLViewer } from './CZMLViewer';
 
 class FCXViewer extends Component {
     constructor(props) {
@@ -28,10 +28,10 @@ class FCXViewer extends Component {
         }
         switch(this.state.currentlyShowing) {
             case "czml":
-                CZMLViewer(this.setCurrentViewer);
+                initializeCZMLViewer(this.setCurrentViewer);
                 break;
             default:
-                CZMLViewer(this.setCurrentViewer); 
+                initializeCZMLViewer(this.setCurrentViewer); 
         }
     }
 
