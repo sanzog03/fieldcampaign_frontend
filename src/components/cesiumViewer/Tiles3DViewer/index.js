@@ -19,8 +19,8 @@ export function initialize3DTileViewer(setCurrentViewer) {
 
 class Tile3DViewer extends DataViewer {
   loadDataIntoViewer(tiles3dDataUrl) {
-    // const tileset = new Temporal3DTileset({
-    const tileset = new Cesium3DTileset({
+    const tileset = new Cesium3DTileset({ // use this to see spatial data
+    // const tileset = new Temporal3DTileset({ // use this to see spatial data in temporal fashion
       url: tiles3dDataUrl
     });
 
@@ -29,7 +29,7 @@ class Tile3DViewer extends DataViewer {
         pointSize: 5.0
       });
 
-    var currentTime = JulianDate.fromIso8601("2015-11-10T00:00:00Z")
+    var currentTime = JulianDate.fromIso8601("2015-11-10T17:54:00Z")
     var endTime = JulianDate.fromIso8601("2015-11-10T23:59:00Z");
 
     this.viewer.clock.currentTime = currentTime;
