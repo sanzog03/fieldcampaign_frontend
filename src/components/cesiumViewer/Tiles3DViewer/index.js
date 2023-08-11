@@ -1,4 +1,4 @@
-import { Cesium3DTileset } from 'cesium';
+import { Cesium3DTileset, Cesium3DTileStyle, JulianDate } from 'cesium';
 import { DataViewer } from '../utils/dataViewer';
 
 import * as Cesium from 'cesium';
@@ -24,13 +24,13 @@ class Tile3DViewer extends DataViewer {
       url: tiles3dDataUrl
     });
 
-    tileset.style = new Cesium.Cesium3DTileStyle({
+    tileset.style = new Cesium3DTileStyle({
         color: this.getColorExpression(),
         pointSize: 5.0
       });
 
-    var currentTime = Cesium.JulianDate.fromIso8601("2015-11-10T00:00:00Z")
-    var endTime = Cesium.JulianDate.fromIso8601("2015-11-10T23:59:00Z");
+    var currentTime = JulianDate.fromIso8601("2015-11-10T00:00:00Z")
+    var endTime = JulianDate.fromIso8601("2015-11-10T23:59:00Z");
 
     this.viewer.clock.currentTime = currentTime;
     this.viewer.clock.multiplier = 10;
