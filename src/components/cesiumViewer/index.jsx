@@ -3,6 +3,7 @@ import {Ion} from 'cesium';
 import { initializeCZMLViewer } from './CZMLViewer';
 import { initialize3DTileViewer } from "./Tiles3DViewer";
 import { initializeWMTSViewer } from "./WMTSViewer";
+import { initializePointPrimitiveViewer } from "./PointPrimitiveViewer";
 
 class FCXViewer extends Component {
     constructor(props) {

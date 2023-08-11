@@ -16,7 +16,6 @@ export function initializePointPrimitiveViewer(setCurrentViewer) {
 class PointPrimitiveViewer extends DataViewer {
   async loadDataIntoViewer(pointsDataUrl) {
     let { data: pointData} = await axios.get(pointsDataUrl);
-    console.log(">>>>", pointData);
     pointData.forEach(point => {
       const {Lon, Lat, Rad} = point;
       // Create a pointPrimitive collection with two points
