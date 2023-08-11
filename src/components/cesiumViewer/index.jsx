@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import {Ion} from 'cesium';
 import { initializeCZMLViewer } from './CZMLViewer';
 import { initialize3DTileViewer } from "./Tiles3DViewer";
+import { initializeWMTSViewer } from "./WMTSViewer";
 
 class FCXViewer extends Component {
     constructor(props) {
@@ -34,6 +35,9 @@ class FCXViewer extends Component {
             case "3dTile":
                 initialize3DTileViewer(this.setCurrentViewer);
                 break;
+            case "wmts":
+                initializeWMTSViewer(this.setCurrentViewer);
+                break;
             default:
                 initializeCZMLViewer(this.setCurrentViewer); 
         }
@@ -62,6 +66,7 @@ class FCXViewer extends Component {
                         <select id="cesiumImplementations" name="cesiumImplementations" value={this.state.currentlyShowing} onChange={this.handleSelectionChange}>
                             <option value="czml">CZML flight Path Tracking</option>
                             <option value="3dTile">3dTile PointClouds</option>
+                            <option value="wmts">WMTS Imagery</option>
                         </select>
                         </td>
                     </tr>
