@@ -5,7 +5,7 @@ import { initialize3DTileViewer } from "./Tiles3DViewer";
 import { initializeWMTSViewer } from "./WMTSViewer";
 import { initializePointPrimitiveViewer } from "./PointPrimitiveViewer";
 
-class FCXViewer extends Component {
+export class FCXViewer extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -60,7 +60,7 @@ class FCXViewer extends Component {
     render() {
       return (
         <div>
-            <div id="cesiumContainer" style={{width: "100%", height: "100%"}}></div>
+            <div id="cesiumContainer" style={{width: "100%", height: "94%"}}></div>
             <div id="customSelectionTool">
             <table>
                 <tbody>
@@ -82,6 +82,4 @@ class FCXViewer extends Component {
       )
     }
 }
-  
-export default FCXViewer;
   
