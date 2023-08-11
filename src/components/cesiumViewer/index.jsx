@@ -38,6 +38,9 @@ class FCXViewer extends Component {
             case "wmts":
                 initializeWMTSViewer(this.setCurrentViewer);
                 break;
+            case "pointPrimitive":
+                initializePointPrimitiveViewer(this.setCurrentViewer);
+                break;
             default:
                 initializeCZMLViewer(this.setCurrentViewer); 
         }
@@ -67,6 +70,7 @@ class FCXViewer extends Component {
                             <option value="czml">CZML flight Path Tracking</option>
                             <option value="3dTile">3dTile PointClouds</option>
                             <option value="wmts">WMTS Imagery</option>
+                            <option value="pointPrimitive">Point Primitives</option>
                         </select>
                         </td>
                     </tr>
