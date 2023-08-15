@@ -5,8 +5,13 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 
 export function TopBar() {
+    /**
+   * A custom TopBar component that displays a Topbar with Title/Logo of the page.
+   * @returns {JSX.Element} TopBar component
+   *
+   */
   return (
-    <AppBar position="static">
+    <AppBar position="fixed" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <Typography

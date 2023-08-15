@@ -9,7 +9,6 @@ export class FCXViewer extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            currentlyShowing: "czml",
             currentViewer: null
         };
         this.handleSelectionChange = this.handleSelectionChange.bind(this);
@@ -22,6 +21,12 @@ export class FCXViewer extends Component {
         this.implementationHandler();
     }
 
+    componentDidUpdate(prevProps) {
+        if (this.props.selectedVisualization !== prevProps.selectedVisualization) {
+            this.implementationHandler();
+        }
+    }
+
     implementationHandler() {
         // on initial render, after component mount, show default viewer
         // on state change, check which viewer was supposed to be shown
@@ -29,7 +34,7 @@ export class FCXViewer extends Component {
         if (this.state.currentViewer) {
             this.state.currentViewer.destroy();
         }
-        switch(this.state.currentlyShowing) {
+        switch(this.props.selectedVisualization) {
             case "czml":
                 initializeCZMLViewer(this.setCurrentViewer);
                 break;
@@ -60,24 +65,7 @@ export class FCXViewer extends Component {
     render() {
       return (
         <div>
-            <div id="cesiumContainer" style={{width: "100%", height: "94%"}}></div>
-            <div id="customSelectionTool">
-            <table>
-                <tbody>
-                    <tr>
-                        <td>Implementations</td>
-                        <td>
-                        <select id="cesiumImplementations" name="cesiumImplementations" value={this.state.currentlyShowing} onChange={this.handleSelectionChange}>
-                            <option value="czml">CZML flight Path Tracking</option>
-                            <option value="3dTile">3dTile PointClouds</option>
-                            <option value="wmts">WMTS Imagery</option>
-                            <option value="pointPrimitive">Point Primitives</option>
-                        </select>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-            </div>
+            <div id="cesiumContainer" style={{width: "100%", height: "100%"}}></div>
         </div>
       )
     }
