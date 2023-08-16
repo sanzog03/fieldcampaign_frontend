@@ -1,5 +1,4 @@
 import * as React from 'react';
-import Box from '@mui/material/Box';
 import CssBaseline from '@mui/material/CssBaseline';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
@@ -12,7 +11,7 @@ export function TopBar() {
    *
    */
   return (
-    <Box sx={{ display: 'flex' }}>
+    <React.Fragment>
       <CssBaseline />
       <AppBar position="fixed" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}>
           <Toolbar disableGutters>
@@ -35,6 +34,6 @@ export function TopBar() {
             </Typography>
           </Toolbar>
       </AppBar>
-    </Box>
+    </React.Fragment>
   );
 }

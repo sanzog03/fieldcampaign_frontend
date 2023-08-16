@@ -1,5 +1,10 @@
 import React, { Component } from "react";
 import {Ion} from 'cesium';
+import Box from '@mui/material/Box';
+import Toolbar from '@mui/material/Toolbar';
+import Typography from '@mui/material/Typography';
+import Container from '@mui/material/Container';
+
 import { initializeCZMLViewer } from './CZMLViewer';
 import { initialize3DTileViewer } from "./Tiles3DViewer";
 import { initializeWMTSViewer } from "./WMTSViewer";
@@ -64,9 +69,14 @@ export class FCXViewer extends Component {
 
     render() {
       return (
-        <div>
-            <div id="cesiumContainer" style={{width: "100%", height: "100%"}}></div>
-        </div>
+        <React.Fragment>
+            <Box component="main" sx={{ flexGrow: 1, p: 2 }}>
+                <Toolbar />
+                <Container>
+                    <Box id="cesiumContainer" style={{width: "100%", height: "100%"}}></Box>
+                </Container>
+            </Box>
+        </React.Fragment>
       )
     }
 }

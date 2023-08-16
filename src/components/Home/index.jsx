@@ -1,5 +1,6 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
+import CssBaseline from '@mui/material/CssBaseline';
 
 import { TopBar } from './topBar';
 import { FCXViewer } from '../cesiumViewer';
@@ -10,7 +11,8 @@ function Home() {
   const [selectedVisualization, setVisualization] = React.useState(visualizationTypes[0]);
 
   return (
-    <Box>
+    <Box sx={{ display: 'flex' }}>
+      <CssBaseline />
       <TopBar/>
       <FCXViewer selectedVisualization={selectedVisualization}/>
       <ClippedDrawer visualizationTypes={visualizationTypes} setVisualization={setVisualization}/>
