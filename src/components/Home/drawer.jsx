@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { Container } from '@mui/material';
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
 import Toolbar from '@mui/material/Toolbar';
@@ -29,32 +30,37 @@ export function ClippedDrawer(props) {
   };
 
   return (
-    <Drawer
-      variant="permanent"
-      sx={{
-        width: drawerWidth,
-        flexShrink: 0,
-        [`& .MuiDrawer-paper`]: { width: drawerWidth, boxSizing: 'border-box' },
-      }}
-    >
-      <Toolbar />
-      <Box sx={{ overflow: 'auto' }}>
-        <FormControl>
-          <FormLabel id="demo-controlled-radio-buttons-group">Visualizations</FormLabel>
-          <RadioGroup
-            aria-labelledby="demo-controlled-radio-buttons-group"
-            name="controlled-radio-buttons-group"
-            value={value}
-            onChange={handleChange}
-          >
-          {
-            props.visualizationTypes.map((type) => (
-              <FormControlLabel value={type} control={<Radio />} label={type} />
-            ))
-          }          
-        </RadioGroup>
-      </FormControl>
-      </Box>
-    </Drawer>
+      <Drawer
+        variant="permanent"
+        sx={{
+          width: drawerWidth,
+          flexShrink: 0,
+          [`& .MuiDrawer-paper`]: { width: drawerWidth, boxSizing: 'border-box' },
+        }}
+      >
+        <Toolbar />
+        <Container>
+          <Box mt={4} sx={{ overflow: 'auto' }}>
+            <FormControl>
+              <FormLabel id="demo-controlled-radio-buttons-group">Visualizations</FormLabel>
+              <Box mt={2}>
+                <RadioGroup
+                  aria-labelledby="demo-controlled-radio-buttons-group"
+                  name="controlled-radio-buttons-group"
+                  value={value}
+                  onChange={handleChange}
+                  mt={2}
+                >
+                {
+                  props.visualizationTypes.map((type) => (
+                    <FormControlLabel value={type} control={<Radio />} label={type} />
+                  ))
+                }
+              </RadioGroup>
+            </Box>
+          </FormControl>
+          </Box>
+        </Container>
+      </Drawer>
   );
 }

@@ -1,12 +1,15 @@
 import React from 'react';
+import CssBaseline from '@mui/material/CssBaseline';
+
 import './App.css';
 import Home from './components/Home';
 
 function App() {
   return (
-    <div className="App">   
-        <Home/>
-    </div>
+    <React.Fragment className="App">
+      <CssBaseline />
+      <Home/>
+    </React.Fragment>
   );
 }
 
