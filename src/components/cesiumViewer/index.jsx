@@ -10,6 +10,7 @@ import { initializeWMTSViewer } from "./WMTSViewer";
 import { initializePointPrimitiveViewer } from "./PointPrimitiveViewer";
 
 import { SubsettingToolExplorer } from "../toolsExplorer/subsettingTool";
+import { HistogramToolExplorer } from "../toolsExplorer/histogramTool";
 
 export class FCXViewer extends Component {
     constructor(props) {
@@ -17,6 +18,7 @@ export class FCXViewer extends Component {
         this.state = {
             currentViewer: null,
             viewerExplorerToggle: true, // if true show data viewer, else show tool explorer
+            toolExpolorer: "subsettingTool",
         };
         this.implementationHandler = this.implementationHandler.bind(this);
         this.setCurrentViewer = this.setCurrentViewer.bind(this);
@@ -59,7 +61,11 @@ export class FCXViewer extends Component {
                 initializePointPrimitiveViewer(this.setCurrentViewer);
                 break;
             case "subsettingTool":
-                this.setCurrentViewer(); // reset the viewer; needed for data viewers.
+                this.setState({toolExpolorer: "subsettingTool", currentViewer: null}); // reset the viewer; needed for data viewers.
+                this.flipViewMode("toolExplorer");
+                break;
+            case "histogramTool":
+                this.setState({toolExpolorer: "histogramTool", currentViewer: null}); // reset the viewer; needed for data viewers.
                 this.flipViewMode("toolExplorer");
                 break;
             default:
@@ -87,9 +93,14 @@ export class FCXViewer extends Component {
                 <Container style={{ display: this.state.viewerExplorerToggle ? "block" : "none" }}>
                     <div id="cesiumContainer" style={{width: "100%", height:"100%"}}></div>
                 </Container>
-                {   !this.state.viewerExplorerToggle &&
+                {   !this.state.viewerExplorerToggle && this.state.toolExpolorer === "subsettingTool" &&
                     (
                         <SubsettingToolExplorer/>
+                    )
+                }
+                {   !this.state.viewerExplorerToggle && this.state.toolExpolorer === "histogramTool" &&
+                    (
+                        <HistogramToolExplorer/>
                     )
                 }
             </Box>
