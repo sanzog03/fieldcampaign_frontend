@@ -4,6 +4,8 @@ import Stack from '@mui/material/Stack';
 import { styled } from '@mui/material/styles';
 import { Typography, Button, TextField } from "@mui/material";
 
+import { apiCall } from "./utils/apiCall";
+
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
   ...theme.typography.body2,
@@ -14,11 +16,15 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 export function SubsettingToolExplorer(props) {
-      const [stdio, setStdio] = useState("Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos blanditiis tenetur unde suscipit, quam beatae rerum inventore consectetur, neque doloribus, cupiditate numquam dignissimos laborum fugiat deleniti? Eum quasi quidem quibusdam.")
-      let handleSubmit = () => {
+      const [stdio, setStdio] = useState("Result Placeholder")
+      let handleSubmit = async (start, end) => {
         // api call, get data
-        // let result = api call
-        // setStdio(result)
+        try {
+          let result = await apiCall(start, end);
+          setStdio(JSON.stringify(result))
+        } catch (error) {
+          setStdio(JSON.stringify(error))
+        }
       }
       return (
         <React.Fragment>
@@ -34,10 +40,11 @@ export function SubsettingToolExplorer(props) {
       )
 }
 
+// helper components
 
 function Buttons(props) {
-  const [start, setStart] = useState("0");
-  const [end, setEnd] = useState("0");
+  const [start, setStart] = useState("2017-05-17 05:45:40 UTC");
+  const [end, setEnd] = useState("2017-05-17 05:55:40 UTC");
   const handleStart = (event) => {
     if (event.target.value) {
       setStart(event.target.value)
@@ -55,11 +62,7 @@ function Buttons(props) {
               <TextField id="standard-basic" style={{width: "100%"}} label="End:" value={end && (end)} onChange={handleEnd}/>
           </div>
           <div className="center_horizontally_child">
-              {/* <ButtonGroup aria-label="small outlined button group">
-                  <Button onClick={this.handleStart}>Start</Button>
-                  <Button onClick={this.handleStop}>Stop</Button>
-              </ButtonGroup> */}
-              <Button variant="outlined" color="primary" onClick={props.handleSubmit}> Submit </Button>
+              <Button variant="outlined" color="primary" onClick={() => props.handleSubmit(start, end)}> Submit </Button>
           </div>
         </div>
       )
