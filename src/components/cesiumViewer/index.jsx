@@ -16,20 +16,20 @@ export class FCXViewer extends Component {
         super(props);
         this.state = {
             currentViewer: null,
-            dataViewer: false,
-            toolExplorer: true
+            viewerExplorerToggle: true, // if true show data viewer, else show tool explorer
         };
         this.implementationHandler = this.implementationHandler.bind(this);
         this.setCurrentViewer = this.setCurrentViewer.bind(this);
+        this.flipViewMode = this.flipViewMode.bind(this);
     }
 
     componentDidMount() {
         Ion.defaultAccessToken = process.env.REACT_APP_CESIUM_DEFAULT_ACCESS_TOKEN;
-        if (this.state.dataViewer) this.implementationHandler();
+        this.implementationHandler();
     }
 
     componentDidUpdate(prevProps) {
-        if (this.props.selectedVisualization !== prevProps.selectedVisualization && this.state.dataViewer) {
+        if (this.props.selectedVisualization !== prevProps.selectedVisualization) {
             this.implementationHandler();
         }
     }
@@ -59,10 +59,11 @@ export class FCXViewer extends Component {
                 initializePointPrimitiveViewer(this.setCurrentViewer);
                 break;
             case "subsettingTool":
-                this.flipViewMode("dataViewer");
+                this.setCurrentViewer(); // reset the viewer; needed for data viewers.
+                this.flipViewMode("toolExplorer");
                 break;
             default:
-                this.flipViewMode("toolExplorer");
+                this.flipViewMode("dataViewer");
                 initializeCZMLViewer(this.setCurrentViewer); 
         }
     }
@@ -72,10 +73,10 @@ export class FCXViewer extends Component {
     }
 
     flipViewMode(requestView) {
-        let currentView = this.state.dataViewer ? "dataViewer" : "toolExplorer";
-        if (currentView !== requestView) {
-            this.setState((prevState) => ({dataViewer: !prevState.dataViewer, toolExplorer: !prevState.toolExplorer}))
-        }
+        let currentView = this.state.viewerExplorerToggle ? "dataViewer" : "toolExplorer";
+            if (currentView !== requestView) {
+                this.setState((prevState) => ({viewerExplorerToggle: !prevState.viewerExplorerToggle}))
+            }
     }
 
     render() {
@@ -83,15 +84,11 @@ export class FCXViewer extends Component {
         <React.Fragment>
             <Box component="main" sx={{ flexGrow: "initial"}}>
                 <Toolbar />
-                {
-                 this.state.dataViewer && (
-                        <Container>
-                            <div id="cesiumContainer" style={{width: "100%", height:"100%"}}></div>
-                        </Container>
-                    )
-                }
-                {
-                    this.state.toolExplorer && (
+                <Container style={{ display: this.state.viewerExplorerToggle ? "block" : "none" }}>
+                    <div id="cesiumContainer" style={{width: "100%", height:"100%"}}></div>
+                </Container>
+                {   !this.state.viewerExplorerToggle &&
+                    (
                         <SubsettingToolExplorer/>
                     )
                 }
