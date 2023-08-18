@@ -9,7 +9,7 @@ import { initialize3DTileViewer } from "./Tiles3DViewer";
 import { initializeWMTSViewer } from "./WMTSViewer";
 import { initializePointPrimitiveViewer } from "./PointPrimitiveViewer";
 
-import { SubsettingToolExplorer } from "../toolsExplorer/SubsettingTool";
+import { SubsettingToolExplorer } from "../toolsExplorer/subsettingTool";
 
 export class FCXViewer extends Component {
     constructor(props) {
