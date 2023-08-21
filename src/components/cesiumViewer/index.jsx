@@ -90,13 +90,13 @@ export class FCXViewer extends Component {
     render() {
       return (
         <React.Fragment>
-            <Box component="main" sx={{ flexGrow: 1}}>
+            <Box component="main" sx={{ flexGrow: 1}} className="heightFix">
                 <Toolbar />
-                <Grid container spacing={2} sx={{width: "100%"}}>
+                <Grid container spacing={2} sx={{width: "100%", height: "100%"}}>
                     <Grid item xs={12} sx={{position: "relative"}}>
                     <Box style={{ display: this.state.viewerExplorerToggle ? "block" : "none", backgroundColor: "green" }}>
                         {/* <div id="cesiumContainer" style={{width: "100rem"}}></div> */}
-                        <div id="cesiumContainer" style={{position: "absolute", width: "100%"}}></div>
+                        <div id="cesiumContainer" style={{position: "absolute", width: "100%", height: "100%"}}></div>
                     </Box>
                     {   !this.state.viewerExplorerToggle && this.state.toolExpolorer === "subsettingTool" &&
                         (

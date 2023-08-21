@@ -6,7 +6,7 @@ import Home from './components/Home';
 
 function App() {
   return (
-    <React.Fragment className="App">
+    <React.Fragment className="App heightFix">
       <CssBaseline />
       <Home/>
     </React.Fragment>

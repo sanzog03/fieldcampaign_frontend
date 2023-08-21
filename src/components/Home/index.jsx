@@ -11,7 +11,7 @@ function Home() {
   const [selectedVisualization, setVisualization] = React.useState(visualizationTypes[0]);
 
   return (
-    <Box sx={{ display: 'flex' }}>
+    <Box className="heightFix" sx={{ display: 'flex' }}>
     <CssBaseline />
       <TopBar/>
       <ClippedDrawer visualizationTypes={visualizationTypes} setVisualization={setVisualization}/>
