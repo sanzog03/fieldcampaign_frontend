@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import Paper from '@mui/material/Paper';
 import Stack from '@mui/material/Stack';
 import { styled } from '@mui/material/styles';
-import { Typography, Button, TextField } from "@mui/material";
+import { Typography, Grid, Button, TextField, Box } from "@mui/material";
 
 import { apiCall } from "./utils/apiCall";
 
@@ -28,14 +28,22 @@ export function SubsettingToolExplorer(props) {
       }
       return (
         <React.Fragment>
-            <Stack spacing={{ xs: 1, sm: 2 }} direction="row" useFlexGap flexWrap="wrap">
+          <Box>
+          <Grid container rowSpacing={{ xs: 3 }} sx={{p: 4}}>
+            Subsetting Dates:
+            <Grid item xs={12}>
               <Item>
                 <Buttons handleSubmit={handleSubmit}/>
               </Item>
+            </Grid>
+            <Grid item xs={12}>
+              Response:
               <Item>
                 <OutputTypography stdio={stdio}/>
               </Item>
-            </Stack>
+            </Grid>
+          </Grid>
+          </Box>
         </React.Fragment>
       )
 }
@@ -56,15 +64,15 @@ function Buttons(props) {
     }
   }
   return (
-        <div>
-          <div>
-              <TextField id="standard-basic" style={{width: "100%"}} label="Start:" value={start && (start)} onChange={handleStart}/>
-              <TextField id="standard-basic" style={{width: "100%"}} label="End:" value={end && (end)} onChange={handleEnd}/>
-          </div>
-          <div className="center_horizontally_child">
+        <Box sx={{m: 2}}>
+          <Box sx={{mb: 1}}>
+              <TextField id="standard-basic" style={{width: "100%", marginBottom:"10px"}} label="Start:" value={start && (start)} onChange={handleStart}/>
+              <TextField id="standard-basic" style={{width: "100%", marginBottom:"10px"}} label="End:" value={end && (end)} onChange={handleEnd}/>
+          </Box>
+          <Box className="center_horizontally_child" sx={{mb: 1}}>
               <Button variant="outlined" color="primary" onClick={() => props.handleSubmit(start, end)}> Submit </Button>
-          </div>
-        </div>
+          </Box>
+        </Box>
       )
 }
 
