@@ -90,10 +90,10 @@ export class FCXViewer extends Component {
     render() {
       return (
         <React.Fragment>
-            <Box component="main" sx={{ flexGrow: "initial"}} style={{width: "99%"}}>
+            <Box component="main" sx={{ flexGrow: 1}}>
                 <Toolbar />
-                <Grid container spacing={2}>
-                    <Grid item xs={12} style={{position: "relative", height: "100%", width: "100%"}}>
+                <Grid container spacing={2} sx={{width: "100%"}}>
+                    <Grid item xs={12} sx={{position: "relative"}}>
                     <Box style={{ display: this.state.viewerExplorerToggle ? "block" : "none", backgroundColor: "green" }}>
                         {/* <div id="cesiumContainer" style={{width: "100rem"}}></div> */}
                         <div id="cesiumContainer" style={{position: "absolute", width: "100%"}}></div>
