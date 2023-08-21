@@ -2,7 +2,9 @@ import React, { Component } from "react";
 import {Ion} from 'cesium';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
-import Container from '@mui/material/Container';
+import Grid from '@mui/material/Grid';
+
+import Typography from '@mui/material/Typography';
 
 import { initializeCZMLViewer } from './CZMLViewer';
 import { initialize3DTileViewer } from "./Tiles3DViewer";
@@ -88,21 +90,26 @@ export class FCXViewer extends Component {
     render() {
       return (
         <React.Fragment>
-            <Box component="main" sx={{ flexGrow: "initial"}}>
+            <Box component="main" sx={{ flexGrow: "initial"}} style={{width: "99%"}}>
                 <Toolbar />
-                <Container style={{ display: this.state.viewerExplorerToggle ? "block" : "none" }}>
-                    <div id="cesiumContainer" style={{width: "100%", height:"100%"}}></div>
-                </Container>
-                {   !this.state.viewerExplorerToggle && this.state.toolExpolorer === "subsettingTool" &&
-                    (
-                        <SubsettingToolExplorer/>
-                    )
-                }
-                {   !this.state.viewerExplorerToggle && this.state.toolExpolorer === "histogramTool" &&
-                    (
-                        <HistogramToolExplorer/>
-                    )
-                }
+                <Grid container spacing={2}>
+                    <Grid item xs={12} style={{position: "relative", height: "100%", width: "100%"}}>
+                    <Box style={{ display: this.state.viewerExplorerToggle ? "block" : "none", backgroundColor: "green" }}>
+                        {/* <div id="cesiumContainer" style={{width: "100rem"}}></div> */}
+                        <div id="cesiumContainer" style={{position: "absolute", width: "100%"}}></div>
+                    </Box>
+                    {   !this.state.viewerExplorerToggle && this.state.toolExpolorer === "subsettingTool" &&
+                        (
+                            <SubsettingToolExplorer/>
+                        )
+                    }
+                    {   !this.state.viewerExplorerToggle && this.state.toolExpolorer === "histogramTool" &&
+                        (
+                            <HistogramToolExplorer/>
+                        )
+                    }
+                    </Grid>
+                </Grid>
             </Box>
         </React.Fragment>
       )

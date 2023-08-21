@@ -12,10 +12,10 @@ function Home() {
 
   return (
     <Box sx={{ display: 'flex' }}>
-      <CssBaseline />
+    <CssBaseline />
       <TopBar/>
-      <FCXViewer selectedVisualization={selectedVisualization}/>
       <ClippedDrawer visualizationTypes={visualizationTypes} setVisualization={setVisualization}/>
+      <FCXViewer selectedVisualization={selectedVisualization}/>
     </Box>
   );
 }

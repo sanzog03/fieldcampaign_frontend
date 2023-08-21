@@ -12,10 +12,9 @@ export function TopBar() {
    */
   return (
     <React.Fragment>
-      <CssBaseline />
       <AppBar position="fixed" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}>
-          <Toolbar disableGutters>
-            <Typography
+        <Toolbar>
+        <Typography
               variant="h6"
               noWrap
               component="a"
@@ -32,7 +31,7 @@ export function TopBar() {
             >
               FCX Playground
             </Typography>
-          </Toolbar>
+        </Toolbar>
       </AppBar>
     </React.Fragment>
   );
