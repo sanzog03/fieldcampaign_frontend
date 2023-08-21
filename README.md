@@ -1,4 +1,4 @@
-# Setting up the Cesium Implementations
+# Setting up the FCX Playground
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app) and wrapped with [CRACO](https://github.com/dilanx/craco).
 
@@ -10,3 +10,10 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 * Install dependencies using `yarn` or `npm i`
 * create `.env` file in the proect root. A copy of `.env.example` with your own Cesium keys.
 * `yarn start` to start the project.
+
+# Building the FCX Playground
+
+### Run Steps
+
+* `yarn build`
+* The webpacked version is available inside `dist/` and is ready for hosting.

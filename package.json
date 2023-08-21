@@ -1,6 +1,10 @@
 {
   "name": "fcx-playground",
-  "version": "0.1.0",
+  "version": "1.0.0",
+  "author": {
+    "name" : "Sanjog Thapa",
+    "email" : "sanzog03@gmail.com"
+  },
   "dependencies": {
     "@craco/craco": "^6.4.5",
     "@emotion/react": "^11.11.1",
