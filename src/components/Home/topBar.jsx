@@ -21,7 +21,7 @@ export function TopBar() {
               href="/"
               sx={{
                 ml: 3,
-                display: { xs: 'none', md: 'flex' },
+                display: { xs: 'flex' },
                 fontFamily: 'monospace',
                 fontWeight: 700,
                 letterSpacing: '.3rem',
