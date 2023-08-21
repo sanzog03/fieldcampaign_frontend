@@ -16,4 +16,4 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 ### Run Steps
 
 * `yarn build`
-* The webpacked version is available inside `dist/` and is ready for hosting.
+* The webpacked version is available inside `build/` and is ready for hosting.
