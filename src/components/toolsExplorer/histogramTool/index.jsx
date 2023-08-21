@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import Paper from '@mui/material/Paper';
 import Stack from '@mui/material/Stack';
 import { styled } from '@mui/material/styles';
-import { Typography, Button, TextField } from "@mui/material";
+import { Typography, Button, TextField, Box, Grid } from "@mui/material";
 
 import { apiCall } from "./utils/apiCall";
 
@@ -28,14 +28,22 @@ export function HistogramToolExplorer(props) {
       }
       return (
         <React.Fragment>
-            <Stack spacing={{ xs: 1, sm: 2 }} direction="row" useFlexGap flexWrap="wrap">
-              <Item>
-                <Buttons handleSubmit={handleSubmit}/>
-              </Item>
-              <Item>
-                <OutputTypography stdio={stdio}/>
-              </Item>
-            </Stack>
+          <Box>
+            <Grid container rowSpacing={{ xs: 3 }} sx={{p: 4}}>
+              Histogram Instrument Types:
+              <Grid item xs={12}>
+                <Item>
+                  <Buttons handleSubmit={handleSubmit}/>
+                </Item>
+              </Grid>
+              <Grid item xs={12}>
+                Result:
+                <Item>
+                  <OutputTypography stdio={stdio}/>
+                </Item>
+              </Grid>
+            </Grid>
+          </Box>
         </React.Fragment>
       )
 }
@@ -50,14 +58,14 @@ function Buttons(props) {
     }
   }
   return (
-        <div>
-          <div>
+        <Box sx={{m: 2}}>
+          <Box sx={{mb: 1}}>
               <TextField id="standard-basic" style={{width: "100%"}} label="Start:" value={instrumentType && (instrumentType)} onChange={handleInstrumentType}/>
-          </div>
-          <div className="center_horizontally_child">
+          </Box>
+          <Box className="center_horizontally_child">
               <Button variant="outlined" color="primary" onClick={() => props.handleSubmit(instrumentType)}> Submit </Button>
-          </div>
-        </div>
+          </Box>
+        </Box>
       )
 }
 
