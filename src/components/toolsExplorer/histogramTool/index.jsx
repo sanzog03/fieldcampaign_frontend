@@ -1,8 +1,12 @@
 import React, {useState} from "react";
 import Paper from '@mui/material/Paper';
-import Stack from '@mui/material/Stack';
 import { styled } from '@mui/material/styles';
 import { Typography, Button, TextField, Box, Grid } from "@mui/material";
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
+
 
 import { apiCall } from "./utils/apiCall";
 
@@ -60,7 +64,21 @@ function Buttons(props) {
   return (
         <Box sx={{m: 2}}>
           <Box sx={{mb: 1}}>
-              <TextField id="standard-basic" style={{width: "100%"}} label="Start:" value={instrumentType && (instrumentType)} onChange={handleInstrumentType}/>
+              <FormControl fullWidth>
+                <InputLabel id="demo-simple-select-label">Instrument Type</InputLabel>
+                <Select
+                  labelId="simple-select-label"
+                  id="simple-select"
+                  value={instrumentType}
+                  label="Instrument Type"
+                  onChange={handleInstrumentType}
+                >
+                  <MenuItem value={"FEGS"}>FEGS</MenuItem>
+                  <MenuItem value={"LIP"}>LIP</MenuItem>
+                  <MenuItem value={"CRS"}>CRS</MenuItem>
+                  <MenuItem value={"CPL"}>CPL</MenuItem>
+                </Select>
+              </FormControl>
           </Box>
           <Box className="center_horizontally_child">
               <Button variant="outlined" color="primary" onClick={() => props.handleSubmit(instrumentType)}> Submit </Button>
