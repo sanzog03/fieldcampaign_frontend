@@ -39,7 +39,11 @@
 
 /* Height 100% fix */
 
-html, body, #root, .fullsize {
+html, body, #root {
+  height: 100%;
+}
+
+.fullSize {
   height: 100%;
   width: 100%;
 }

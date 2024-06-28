@@ -9,9 +9,9 @@ function Home() {
     <Box 
       display={"flex"}
       flexDirection={"column"}
-      className="fullsize">
-        <FCXViewer className="fullsize"/>
-        <Chart className="fullsize"/>
+      className="fullSize">
+        <FCXViewer/>
+        <Chart/>
     </Box>
   );
 }

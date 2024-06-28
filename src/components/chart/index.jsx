@@ -3,7 +3,7 @@ import Box from '@mui/material/Box';
 
 export function Chart() {
   return (
-    <Box className="fullsize">
+    <Box className="fullSize">
         placeholder for charts.
     </Box>
   );

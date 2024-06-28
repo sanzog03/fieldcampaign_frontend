@@ -35,10 +35,10 @@ export class FCXViewer extends Component {
     render() {
       return (
         <React.Fragment>
-            <Box component="main" sx={{ flexGrow: 1 }} className="fullsize">
-                <Grid container spacing={2} className="fullsize">
-                    <Grid item xs={12} sx={{position: "relative"}}>
-                        <div id="cesiumContainer" className="fullsize" style={{ position: "absolute" }}></div>
+            <Box component="main" className="fullSize" sx={{ flexGrow: 1 }}>
+                <Grid container className="fullSize">
+                    <Grid item xs={12} sx={{ position: "relative" }}>
+                        <div id="cesiumContainer" className="fullSize" style={{ position: "absolute" }}></div>
                     </Grid>
                 </Grid>
             </Box>
