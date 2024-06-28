@@ -2,7 +2,7 @@ import * as React from 'react';
 import Box from '@mui/material/Box';
 
 import { FCXViewer } from '../cesiumViewer';
-import { Chart } from '../chart';
+import { ConcentrationChart } from '../chart';
 import { Title } from '../title';
 
 function Home() {
@@ -13,7 +13,7 @@ function Home() {
       className="fullSize">
         <Title/>
         <FCXViewer/>
-        <Chart/>
+        <ConcentrationChart/>
     </Box>
   );
 }

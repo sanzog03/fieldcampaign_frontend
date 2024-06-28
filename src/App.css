@@ -48,6 +48,14 @@ html, body, #root {
   width: 100%;
 }
 
+.fullHeight {
+  height: 100%;
+}
+
+.fullWidth {
+  width: 100%;
+}
+
 /* Tool title card styles */
 #title {
   position: absolute;

@@ -2,8 +2,8 @@
   "name": "fcx-playground",
   "version": "1.0.0",
   "author": {
-    "name" : "Sanjog Thapa",
-    "email" : "sanzog03@gmail.com"
+    "name": "Sanjog Thapa",
+    "email": "sanzog03@gmail.com"
   },
   "dependencies": {
     "@craco/craco": "^6.4.5",
@@ -16,6 +16,7 @@
     "@testing-library/user-event": "^13.5.0",
     "axios": "^1.4.0",
     "cesium": "^1.96.0",
+    "chart.js": "^4.4.3",
     "jsona": "^1.11.0",
     "moment": "^2.29.4",
     "react": "^18.2.0",
