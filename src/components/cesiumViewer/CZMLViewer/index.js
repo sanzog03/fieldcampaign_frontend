@@ -3,6 +3,8 @@ import { CzmlDataSource, HeadingPitchRange, Math, HeadingPitchRoll,
 
 import { DataViewer } from '../utils/dataViewer';
 
+import noaaczml from '../../../assets/data/nav_czml.czml';
+
 export function initializeCZMLViewer(setCurrentViewer) {
     /**
      * Initialize viewer and load CZML type data.
@@ -10,7 +12,8 @@ export function initializeCZMLViewer(setCurrentViewer) {
      */
     const czmlViewer = new CZMLViewer();
     setCurrentViewer(czmlViewer.viewer);
-    const czmlDataUrl = "https://ghrc-fcx-field-campaigns-szg.s3.amazonaws.com/Olympex/instrument-processed-data/nav_er2/olympex_naver2_IWG1_20151109.czml"
+    // const czmlDataUrl = "https://ghrc-fcx-field-campaigns-szg.s3.amazonaws.com/Olympex/instrument-processed-data/nav_er2/olympex_naver2_IWG1_20151109.czml"
+    const czmlDataUrl = noaaczml
     czmlViewer.loadDataIntoViewer(czmlDataUrl);
 }
 
