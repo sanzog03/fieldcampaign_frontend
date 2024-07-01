@@ -40,7 +40,7 @@ export class ConcentrationChart extends Component {
           label: 'Altitude',
           data: [],
           borderColor: "#36a2eb",
-          yAxisID: 'y',
+          yAxisID: 'y1',
         }
       ]
     };
