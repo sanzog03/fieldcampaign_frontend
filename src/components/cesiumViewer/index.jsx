@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import {Ion} from 'cesium';
+import { Ion, Math, HeadingPitchRoll, Transforms, CallbackProperty, Cartesian3 } from 'cesium';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 
@@ -16,10 +16,6 @@ export class FCXViewer extends Component {
     componentDidMount() {
         Ion.defaultAccessToken = process.env.REACT_APP_CESIUM_DEFAULT_ACCESS_TOKEN;
         this.implementationHandler();
-
-        setInterval(() => {
-            this.props.setChartData({ year: 2016, count: 30 });
-        }, 5000);
     }
 
     implementationHandler() {
@@ -29,7 +25,7 @@ export class FCXViewer extends Component {
         if (this.state.currentViewer) {
             this.state.currentViewer.destroy();
         }
-        initializeCZMLViewer(this.setCurrentViewer); 
+        initializeCZMLViewer(this.setCurrentViewer, this.props.setChartData);
     }
 
     setCurrentViewer(viewer){

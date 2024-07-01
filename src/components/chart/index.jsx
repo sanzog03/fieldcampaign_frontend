@@ -27,16 +27,27 @@ export class ConcentrationChart extends Component {
 
   initializeChart (chartDOMRef) {
     const data = this.state.chartData;
-    const dataset = {
-      labels: data.map(row => row.year),
+    let dataset = {
+      labels: [],
       datasets: [
         {
           label: 'GHGC Concentration PPM',
-          data: data.map(row => row.count)
+          data: []
         }
       ]
     };
 
+    if (data[0] !== null) {
+      dataset = {
+        labels: data.map(row => row.year),
+        datasets: [
+          {
+            label: 'GHGC Concentration PPM',
+            data: data.map(row => row.count)
+          }
+        ]
+      };
+    }
 
     this.chart = new Chart(chartDOMRef, {
       type: 'line',
@@ -54,7 +65,7 @@ export class ConcentrationChart extends Component {
         dataset.data.push(data);
       });
       // update the chart
-      this.chart.update();
+      this.chart.update('none');
     }
   }
 

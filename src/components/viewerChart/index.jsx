@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const chartDataSchema = { year: 2010, count: 10 };
+const chartDataSchema = null;
 
 export function ViewerChartWrapper(props) {
   const { children } = props;
