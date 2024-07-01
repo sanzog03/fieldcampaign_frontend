@@ -1,6 +1,7 @@
 import { Component, createRef } from 'react';
 import Chart from 'chart.js/auto';
 import Box from '@mui/material/Box';
+import { plugin, options } from './helper';
 
 export class ConcentrationChart extends Component {
   constructor(props) {
@@ -26,17 +27,22 @@ export class ConcentrationChart extends Component {
 
   initializeChart (chartDOMRef) {
     const data = this.state.chartData;
+    const dataset = {
+      labels: data.map(row => row.year),
+      datasets: [
+        {
+          label: 'GHGC Concentration PPM',
+          data: data.map(row => row.count)
+        }
+      ]
+    };
+
+
     this.chart = new Chart(chartDOMRef, {
       type: 'line',
-      data: {
-        labels: data.map(row => row.year),
-        datasets: [
-          {
-            label: 'GHGC Concentration PPM',
-            data: data.map(row => row.count)
-          }
-        ]
-      }
+      data: dataset,
+      options: options,
+      plugins: [plugin]
     });
   }
 
@@ -57,7 +63,9 @@ export class ConcentrationChart extends Component {
       <Box sx={{height: "30em"}}>
           <div id="chart-container" className='fullSize'>
             <canvas
-              className='chart-canvas fullWidth'
+              id = "chart"
+              className='fullWidth'
+              style={{width: "100%", height: "100%"}}
               ref={chartCanvas => (this.chartCanvas = chartCanvas)}
             />
           </div>
