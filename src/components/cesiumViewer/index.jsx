@@ -16,6 +16,10 @@ export class FCXViewer extends Component {
     componentDidMount() {
         Ion.defaultAccessToken = process.env.REACT_APP_CESIUM_DEFAULT_ACCESS_TOKEN;
         this.implementationHandler();
+
+        setInterval(() => {
+            this.props.setChartData({ year: 2016, count: 30 });
+        }, 5000);
     }
 
     implementationHandler() {

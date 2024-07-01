@@ -6,6 +6,11 @@ export class ConcentrationChart extends Component {
   constructor(props) {
     super(props);
     this.initializeChart = this.initializeChart.bind(this);
+    this.update = this.updateChart.bind(this);
+    this.chart = null;
+    this.state = {
+      chartData: [ this.props.chartData ]
+    }
   }
 
   componentDidMount() {
@@ -13,29 +18,38 @@ export class ConcentrationChart extends Component {
     this.initializeChart(chartCanvas);
   }
 
+  componentDidUpdate(prevProps, prevState) {
+    // when new props is received, update the chart.
+    let { year, count } = this.props.chartData;
+    this.updateChart(year, count);
+  }
+
   initializeChart (chartDOMRef) {
-    const data = [
-      { year: 2010, count: 10 },
-      { year: 2011, count: 20 },
-      { year: 2012, count: 15 },
-      { year: 2013, count: 25 },
-      { year: 2014, count: 22 },
-      { year: 2015, count: 30 },
-      { year: 2016, count: 28 },
-    ];
-    // return
-    const chart = new Chart(chartDOMRef, {
-      type: 'bar',
+    const data = this.state.chartData;
+    this.chart = new Chart(chartDOMRef, {
+      type: 'line',
       data: {
         labels: data.map(row => row.year),
         datasets: [
           {
-            label: 'Acquisitions by year',
+            label: 'GHGC Concentration PPM',
             data: data.map(row => row.count)
           }
         ]
       }
     });
+  }
+
+  updateChart(label, data) {
+    if (this.chart) {
+      // update that value in the chart.
+      this.chart.data.labels.push(label);
+      this.chart.data.datasets.forEach((dataset) => {
+        dataset.data.push(data);
+      });
+      // update the chart
+      this.chart.update();
+    }
   }
 
   render() {
