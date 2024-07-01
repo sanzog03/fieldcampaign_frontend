@@ -25,7 +25,7 @@ export class FCXViewer extends Component {
         if (this.state.currentViewer) {
             this.state.currentViewer.destroy();
         }
-        initializeCZMLViewer(this.setCurrentViewer, this.props.setChartData);
+        initializeCZMLViewer(this.setCurrentViewer, this.props.setChartData, this.props.setAltitudeData);
     }
 
     setCurrentViewer(viewer){

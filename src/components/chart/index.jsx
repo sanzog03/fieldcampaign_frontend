@@ -22,7 +22,8 @@ export class ConcentrationChart extends Component {
   componentDidUpdate(prevProps, prevState) {
     // when new props is received, update the chart.
     let { year, count } = this.props.chartData;
-    this.updateChart(year, count);
+    let { altitude } = this.props.altitudeData;
+    this.updateChart(year, count, altitude);
   }
 
   initializeChart (chartDOMRef) {
@@ -65,13 +66,13 @@ export class ConcentrationChart extends Component {
     });
   }
 
-  updateChart(label, data) {
+  updateChart(label, data, altitude) {
     if (this.chart) {
       // update that value in the chart.
       this.chart.data.labels.push(label);
-      this.chart.data.datasets.forEach((dataset) => {
-        dataset.data.push(data);
-      });
+      this.chart.data.datasets[0].data.push(data);
+      this.chart.data.datasets[1].data.push(altitude);
+
       // update the chart
       this.chart.update('none');
     }

@@ -1,11 +1,11 @@
 import { CzmlDataSource, HeadingPitchRange, Math, HeadingPitchRoll,
-         Transforms, CallbackProperty, Cartesian3, JulianDate } from 'cesium';
+         Transforms, CallbackProperty, Cartesian3, JulianDate, Ellipsoid } from 'cesium';
 
 import { DataViewer } from '../utils/dataViewer';
 
 import noaaczml from '../../../assets/data/nav_czml.czml';
 
-export function initializeCZMLViewer(setCurrentViewer, setChartData) {
+export function initializeCZMLViewer(setCurrentViewer, setChartData, setAltitudeData) {
     /**
      * Initialize viewer and load CZML type data.
      * @param  {function} setCurrentViewer  A function that takes `viewer` as a parameter. Used to keep track of current viewer for later removal in parent scope.
@@ -14,11 +14,11 @@ export function initializeCZMLViewer(setCurrentViewer, setChartData) {
     setCurrentViewer(czmlViewer.viewer);
     // const czmlDataUrl = "https://ghrc-fcx-field-campaigns-szg.s3.amazonaws.com/Olympex/instrument-processed-data/nav_er2/olympex_naver2_IWG1_20151109.czml"
     const czmlDataUrl = noaaczml
-    czmlViewer.loadDataIntoViewer(czmlDataUrl, setChartData);
+    czmlViewer.loadDataIntoViewer(czmlDataUrl, setChartData, setAltitudeData);
 }
 
 class CZMLViewer extends DataViewer {
-    loadDataIntoViewer(czmlDataUrl, setChartData) {
+    loadDataIntoViewer(czmlDataUrl, setChartData, setAltitudeData) {
         CzmlDataSource.load(czmlDataUrl)
         .then(async (dataSource) => {
             this.viewer.dataSources.add(dataSource);
@@ -38,6 +38,10 @@ class CZMLViewer extends DataViewer {
 
                 function fixOrientation(entity, time) {
                     const position = entity.position.getValue(time);
+
+                    var carto = Ellipsoid.WGS84.cartesianToCartographic(position);
+                    var altitude = Math.toDegrees(carto.height);
+
                     let { heading, pitch, roll, co2, ch4, correctionOffsets } = entity.properties.getValue(time);
                     // only the heading should change with respect to the position.
                     if(!correctionOffsets) {
@@ -53,6 +57,7 @@ class CZMLViewer extends DataViewer {
                     // only on time change.
                     if (previousTime !== formattedDateTime) {
                         setChartData({ year: formattedDateTime, count: co2 })
+                        setAltitudeData({ year: formattedDateTime, altitude: altitude })
                         previousTime = formattedDateTime;
                     }
 
