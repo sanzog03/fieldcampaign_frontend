@@ -52,11 +52,13 @@ export const plugin = {
 };
 
 export const options = {
+  // responsive: true,
   interaction: {
     intersect: false,
     mode: "nearest",
     axis: "x",
   },
+  stacked: false,
   hover: {
     mode: "nearest",
     intersect: false,
@@ -85,6 +87,20 @@ export const options = {
         text: "Concentration (ppm)",
         display: true,
       },
+      position: "left",
+      display: true,
+      grid: {
+        display: false,
+        drawOnChartArea: false,
+      },
+    },
+    y1: {
+      title: {
+        text: "Altitude (m)",
+        display: true,
+      },
+      position: "right",
+      display: true,
     },
   },
   plugins: {
