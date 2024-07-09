@@ -40,7 +40,8 @@ class CZMLViewer extends DataViewer {
                     const position = entity.position.getValue(time);
 
                     var carto = Ellipsoid.WGS84.cartesianToCartographic(position);
-                    var altitude = Math.toDegrees(carto.height);
+                    // var altitude = Math.toDegrees(carto.height);
+                    var altitude = carto.height;
 
                     let { heading, pitch, roll, co2, ch4, correctionOffsets } = entity.properties.getValue(time);
                     // only the heading should change with respect to the position.

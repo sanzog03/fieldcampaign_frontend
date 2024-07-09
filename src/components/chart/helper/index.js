@@ -127,7 +127,7 @@ export const options = {
     },
     title: {
       display: true,
-      text: "Field Campaign", // Add your chart title here
+      text: "NOAA Picarro CO2", // Add your chart title here
       padding: {
         top: 10,
         bottom: 20,

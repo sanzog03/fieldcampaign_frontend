@@ -32,13 +32,13 @@ export class ConcentrationChart extends Component {
       labels: [],
       datasets: [
         {
-          label: 'GHG Concentration (PPM)',
+          label: 'CO2 Concentration (ppm)',
           data: [],
           borderColor: "#ff6384",
           yAxisID: 'y',
         },
         {
-          label: 'Altitude',
+          label: 'Altitude (m)',
           data: [],
           borderColor: "#36a2eb",
           yAxisID: 'y1',

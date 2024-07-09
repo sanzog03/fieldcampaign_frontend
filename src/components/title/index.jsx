@@ -1,7 +1,7 @@
 export function Title () {
     return (
         <div id="title">
-            <strong>Field Campaign Viewer</strong>
+            <strong>NOAA: Airborne Viewer</strong>
         </div>
     );
 }
