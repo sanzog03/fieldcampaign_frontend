@@ -5,7 +5,9 @@ import { Panel, PanelGroup, PanelResizeHandle } from 'react-resizable-panels';
 import { FCXViewer } from '../cesiumViewer';
 import { ConcentrationChart } from '../chart';
 import { Title } from '../title';
-import styled from 'styled-components';
+import DragHandleIcon from '@mui/icons-material/DragHandle';
+
+import './index.css';
 
 function Home() {
   return (
@@ -21,7 +23,9 @@ function Home() {
           >
             <FCXViewer/>
           </Panel>
-          <PanelResizeHandle className='resize-handle' />
+          <PanelResizeHandle className='resize-handle'>
+            <DragHandleIcon/>
+          </PanelResizeHandle>
           <Panel maxSize={75} minSize={40} defaultSize={40} className='panel panel-timeline'>
             <ConcentrationChart/>
           </Panel>
