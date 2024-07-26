@@ -1,24 +1,23 @@
 import { CzmlDataSource, HeadingPitchRange, Math, HeadingPitchRoll,
          Transforms, CallbackProperty, Cartesian3, JulianDate, Ellipsoid } from 'cesium';
-
+import { store } from "../../../store"; 
+import { updateData } from "../cesiumViewerSlice";
 import { DataViewer } from '../utils/dataViewer';
-
 import noaaczml from '../../../assets/data/nav_czml.czml';
 
-export function initializeCZMLViewer(setCurrentViewer, setChartData, setAltitudeData) {
+export function initializeCZMLViewer(setCurrentViewer) {
     /**
      * Initialize viewer and load CZML type data.
      * @param  {function} setCurrentViewer  A function that takes `viewer` as a parameter. Used to keep track of current viewer for later removal in parent scope.
      */
     const czmlViewer = new CZMLViewer();
     setCurrentViewer(czmlViewer.viewer);
-    // const czmlDataUrl = "https://ghrc-fcx-field-campaigns-szg.s3.amazonaws.com/Olympex/instrument-processed-data/nav_er2/olympex_naver2_IWG1_20151109.czml"
     const czmlDataUrl = noaaczml
-    czmlViewer.loadDataIntoViewer(czmlDataUrl, setChartData, setAltitudeData);
+    czmlViewer.loadDataIntoViewer(czmlDataUrl);
 }
 
 class CZMLViewer extends DataViewer {
-    loadDataIntoViewer(czmlDataUrl, setChartData, setAltitudeData) {
+    loadDataIntoViewer(czmlDataUrl) {
         CzmlDataSource.load(czmlDataUrl)
         .then(async (dataSource) => {
             this.viewer.dataSources.add(dataSource);
@@ -57,8 +56,11 @@ class CZMLViewer extends DataViewer {
 
                     // only on time change.
                     if (previousTime !== formattedDateTime) {
-                        setChartData({ year: formattedDateTime, count: co2 })
-                        setAltitudeData({ year: formattedDateTime, altitude: altitude })
+                        store.dispatch(updateData({
+                            datetime: formattedDateTime,
+                            altitude: altitude,
+                            value: co2
+                        }))
                         previousTime = formattedDateTime;
                     }
 
