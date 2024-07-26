@@ -30,17 +30,19 @@ export class ConcentrationChart1 extends Component {
       labels: [],
       datasets: [
         {
-          label: 'CO2 Concentration (ppm)',
+          label: 'CO2 Concentration (ppm)', // legend
+          pointBackgroundColor: "#ff6384",
+          pointBorderColor: "#ff6384",
           data: [],
-          borderColor: "#ff6384",
-          yAxisID: 'y',
+          yAxisID: 'y1',
           showLine: false
         },
         {
-          label: 'Altitude (m)',
+          label: 'Altitude (m)', // legend
           data: [],
-          borderColor: "#36a2eb",
-          yAxisID: 'y1',
+          pointBorderColor: "#36a2eb",
+          pointBackgroundColor: "#36a2eb",
+          yAxisID: 'y2',
           showLine: false
         }
       ]

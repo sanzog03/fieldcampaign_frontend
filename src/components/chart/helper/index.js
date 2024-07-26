@@ -34,25 +34,20 @@ export const plugin = {
     const { top, bottom, left, right } = chart.chartArea;
     const { x, y, draw } = chart.corsair;
     if (!draw) return;
-
     ctx.save();
-
     ctx.beginPath();
     ctx.lineWidth = opts.width;
     ctx.strokeStyle = opts.color;
     ctx.setLineDash(opts.dash);
     ctx.moveTo(x, bottom);
     ctx.lineTo(x, top);
-    // ctx.moveTo(left, y)
-    // ctx.lineTo(right, y)
     ctx.stroke();
-
     ctx.restore();
   },
 };
 
 export const options = {
-  // responsive: true,
+  responsive: true,
   interaction: {
     intersect: false,
     mode: "nearest",
@@ -67,7 +62,7 @@ export const options = {
     x: {
       title: {
         display: true,
-        text: "Observation Date/Time",
+        text: "Observation Date/Time", // TODO: Add your x-axis title here from redux
       },
       grid: {
         display: false,
@@ -76,15 +71,12 @@ export const options = {
       type: "time",
       ticks: {
         autoSkip: true, // Enable automatic skip
-        maxTicksLimit: 8, // Maximum number of ticks to display
-        // callback: function(value) {
-        //   return "fadhsdsf"
-        // }
+        maxTicksLimit: 10, // Maximum number of ticks to display
       },
     },
-    y: {
+    y1: {
       title: {
-        text: "Concentration (ppm)",
+        text: "Concentration (ppm)", // TODO: add your y-axis title here from redux
         display: true,
       },
       position: "left",
@@ -94,9 +86,9 @@ export const options = {
         drawOnChartArea: false,
       },
     },
-    y1: {
+    y2: {
       title: {
-        text: "Altitude (m)",
+        text: "Altitude (m)", // TODO: add your y-axis right title here from redux
         display: true,
       },
       position: "right",
@@ -104,9 +96,6 @@ export const options = {
     },
   },
   plugins: {
-    corsair: {
-      // color: 'black',
-    },
     zoom: {
       zoom: {
         wheel: {
@@ -127,7 +116,7 @@ export const options = {
     },
     title: {
       display: true,
-      text: "NOAA Picarro CO2", // Add your chart title here
+      text: "NOAA Picarro CO2", // TODO: Add your chart title here from redux
       padding: {
         top: 10,
         bottom: 20,
@@ -166,7 +155,6 @@ export const options = {
       padding: 8,
       caretSize: 0,
       boxPadding: 3,
-      // multiKeyBackground: ghgBlue
     },
   },
 };
