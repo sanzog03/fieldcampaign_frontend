@@ -5,6 +5,8 @@ import { updateData } from "../cesiumViewerSlice";
 import { DataViewer } from '../utils/dataViewer';
 import noaaczml from '../../../assets/data/nav_czml.czml';
 
+let previousTime = null;
+
 export function initializeCZMLViewer(setCurrentViewer) {
     /**
      * Initialize viewer and load CZML type data.
@@ -31,51 +33,51 @@ class CZMLViewer extends DataViewer {
                 // track entity
                 this.viewer.trackedEntity = flightEntity;
                 // fix orientation
-                let previousTime = null;
-
                 flightEntity.orientation = new CallbackProperty((time, _result) => fixOrientation(flightEntity, time), false);
 
-                function fixOrientation(entity, time) {
-                    const position = entity.position.getValue(time);
 
-                    var carto = Ellipsoid.WGS84.cartesianToCartographic(position);
-                    // var altitude = Math.toDegrees(carto.height);
-                    var altitude = carto.height;
-
-                    let { heading, pitch, roll, co2, ch4, correctionOffsets } = entity.properties.getValue(time);
-                    // only the heading should change with respect to the position.
-                    if(!correctionOffsets) {
-                        correctionOffsets = {
-                            heading: 0,
-                            pitch: 0,
-                            roll: 0
-                        }
-                    }
-
-                    let formattedDateTime = JulianDate.toIso8601(time);
-
-                    // only on time change.
-                    if (previousTime !== formattedDateTime) {
-                        store.dispatch(updateData({
-                            datetime: formattedDateTime,
-                            altitude: altitude,
-                            value: co2
-                        }))
-                        previousTime = formattedDateTime;
-                    }
-
-                    // fix the pitch and roll rotations
-                    heading = heading + Math.toRadians(correctionOffsets.heading);
-                    pitch = pitch + Math.toRadians(correctionOffsets.pitch);
-                    roll = roll + Math.toRadians(correctionOffsets.roll);
-                    const hpr = new HeadingPitchRoll(heading, pitch, roll);
-                    const fixedOrientation = Transforms.headingPitchRollQuaternion(
-                        position,
-                        hpr
-                    );
-                    return fixedOrientation;
-                }
             }
         });
     }
+}
+
+function fixOrientation(entity, time) {
+    const position = entity.position.getValue(time);
+
+    var carto = Ellipsoid.WGS84.cartesianToCartographic(position);
+    // var altitude = Math.toDegrees(carto.height);
+    var altitude = carto.height;
+
+    let { heading, pitch, roll, co2, ch4, correctionOffsets } = entity.properties.getValue(time);
+    // only the heading should change with respect to the position.
+    if(!correctionOffsets) {
+        correctionOffsets = {
+            heading: 0,
+            pitch: 0,
+            roll: 0
+        }
+    }
+
+    let formattedDateTime = JulianDate.toIso8601(time);
+
+    // only on time change.
+    if (previousTime !== formattedDateTime) {
+        store.dispatch(updateData({
+            datetime: formattedDateTime,
+            altitude: parseFloat(altitude.toFixed(2)),
+            value: parseFloat(co2.toFixed(2))
+        }))
+        previousTime = formattedDateTime;
+    }
+
+    // fix the pitch and roll rotations
+    heading = heading + Math.toRadians(correctionOffsets.heading);
+    pitch = pitch + Math.toRadians(correctionOffsets.pitch);
+    roll = roll + Math.toRadians(correctionOffsets.roll);
+    const hpr = new HeadingPitchRoll(heading, pitch, roll);
+    const fixedOrientation = Transforms.headingPitchRollQuaternion(
+        position,
+        hpr
+    );
+    return fixedOrientation;
 }
