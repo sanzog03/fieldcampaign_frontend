@@ -73,7 +73,7 @@ export class ConcentrationChart1 extends Component {
 
   render() {
     return (
-      <Box sx={{height: "30em"}}>
+      <Box sx={{height: "100%", width: "auto"}}>
           <div id="chart-container" className='fullSize'>
             <canvas
               id = "chart"
