@@ -156,5 +156,15 @@ export const options = {
       caretSize: 0,
       boxPadding: 3,
     },
+    annotation: {
+      annotations: {
+        dataReferenceLine: {
+          type: 'line',
+          borderColor: '#d2d2d2',
+          borderWidth: 2,
+          borderDash: [5, 5],
+        }
+      }
+    }
   },
 };

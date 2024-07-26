@@ -56,12 +56,16 @@ export class ConcentrationChart1 extends Component {
     });
   }
 
-  addChartData(label, data, altitude) {
-    if (this.chart && label && data && altitude) {
+  addChartData(datetime, concentration, altitude) {
+    if (this.chart && datetime && concentration && altitude) {
       // update that value in the chart.
-      this.chart.data.labels.push(label);
-      this.chart.data.datasets[0].data.push(data);
+      this.chart.data.labels.push(datetime);
+      this.chart.data.datasets[0].data.push(concentration);
       this.chart.data.datasets[1].data.push(altitude);
+
+      const dataReferenceLine = this.chart.options.plugins.annotation.annotations.dataReferenceLine;
+      dataReferenceLine.xMin = datetime;
+      dataReferenceLine.xMax = datetime;
       // update the chart
       this.chart.update('none');
     }
