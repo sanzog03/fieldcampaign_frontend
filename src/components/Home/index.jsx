@@ -68,8 +68,8 @@ function Home() {
                 <ToggleButton value="interpolated">Interpolated</ToggleButton>
               </ToggleButtonGroup>
               <Tooltip title="Reload zoom" placement="bottom">
-                <Button variant='outlined'>
-                  <RefreshIcon onClick={handleReload}/>
+                <Button variant='outlined' onClick={handleReload}>
+                  <RefreshIcon/>
                 </Button>
               </Tooltip>
             </ChartMenuBar>

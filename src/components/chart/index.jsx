@@ -27,6 +27,7 @@ export class ConcentrationChart1 extends Component {
       this.handleChartChange(chartMechanism);  
     } else {
       let { chartMechanism } = this.props;
+      this.chart.resetZoom();
       this.chart.destroy();
       this.handleChartCreate(chartMechanism);
     }
@@ -53,8 +54,8 @@ export class ConcentrationChart1 extends Component {
       datasets: [
         {
           label: 'CO2 Concentration (ppm)', // legend
-          pointBackgroundColor: "#ff6384",
-          pointBorderColor: "#ff6384",
+          backgroundColor: "#ff6384",
+          borderColor: "#ff6384",
           data: value,
           yAxisID: 'y1',
           showLine: false
@@ -62,8 +63,8 @@ export class ConcentrationChart1 extends Component {
         {
           label: 'Altitude (m)', // legend
           data: altitude,
-          pointBorderColor: "#36a2eb",
-          pointBackgroundColor: "#36a2eb",
+          borderColor: "#36a2eb",
+          backgroundColor: "#36a2eb",
           yAxisID: 'y2',
           showLine: false
         }
