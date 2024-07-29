@@ -23,6 +23,9 @@ export class ConcentrationChart1 extends Component {
   componentDidUpdate(prevProps, prevState) {
     // when new props is received, update the chart.
     this.addChartData(this.props.currentDateTime, this.props.currentValue, this.props.currentAltitude);
+    if (this.props.reload && this.chart) {
+      this.chart.resetZoom();
+    }
   }
 
   initializeChart (chartDOMRef) {
