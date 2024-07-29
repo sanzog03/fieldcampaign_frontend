@@ -80,6 +80,7 @@ export const options = {
         autoSkip: true, // Enable automatic skip
         maxTicksLimit: 10, // Maximum number of ticks to display
       },
+      offset: true,
     },
     y1: {
       title: {
