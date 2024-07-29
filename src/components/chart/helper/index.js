@@ -3,6 +3,7 @@ import zoomPlugin from "chartjs-plugin-zoom";
 import annotationPlugin from "chartjs-plugin-annotation";
 // import * as cjsam from 'chartjs-adapter-moment';
 import "chartjs-adapter-date-fns";
+import 'chartjs-adapter-luxon';
 
 Chart.register(zoomPlugin);
 Chart.register(annotationPlugin);
@@ -70,6 +71,11 @@ export const options = {
         drawOnChartArea: false,
       },
       type: "time",
+      adapters: {
+        date: {
+          zone: "UTC+00:00", // Set the timezone to UTC
+        },
+      },
       ticks: {
         autoSkip: true, // Enable automatic skip
         maxTicksLimit: 10, // Maximum number of ticks to display
