@@ -3,6 +3,7 @@ import { Ion } from 'cesium';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import { initializeCZMLViewer } from './viewers/CZMLViewer';
+import { MapMenu } from "./menu";
 
 export class FCXViewer extends Component {
     constructor(props) {
@@ -41,6 +42,7 @@ export class FCXViewer extends Component {
                     </Grid>
                 </Grid>
             </Box>
+            <MapMenu />
         </React.Fragment>
       )
     }
