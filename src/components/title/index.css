@@ -1,0 +1,16 @@
+#title {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+
+  color: #082A63;
+  text-align: center;
+  font-size: 1.1rem;
+  font-family: "inter";
+
+  padding: 0 24px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
+  z-index: 1000;
+  background-color: rgba(255, 255, 255, 0.8);
+}
