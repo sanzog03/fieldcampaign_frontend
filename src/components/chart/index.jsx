@@ -20,6 +20,12 @@ export class ConcentrationChart1 extends Component {
     this.handleChartCreate(chartMechanism);
   }
 
+  componentWillUnmount() {
+    if (this.chart) {
+      this.chart.destroy();
+    }
+  }
+
   componentDidUpdate(prevProps, prevState) {
     // when new props is received, update the chart.
     if ( prevProps.chartMechanism === this.props.chartMechanism ) {
