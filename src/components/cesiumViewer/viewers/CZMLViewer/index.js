@@ -1,9 +1,9 @@
 import { CzmlDataSource, HeadingPitchRange, Math, HeadingPitchRoll,
          Transforms, CallbackProperty, Cartesian3, JulianDate, Ellipsoid } from 'cesium';
-import { store } from "../../../store"; 
-import { updateData } from "../cesiumViewerSlice";
+import { store } from "../../../../store"; 
+import { updateData } from "../../cesiumViewerSlice";
 import { DataViewer } from '../utils/dataViewer';
-import noaaczml from '../../../assets/data/nav_czml.czml';
+import noaaczml from '../../../../assets/data/nav_czml.czml';
 
 let previousTime = null;
 

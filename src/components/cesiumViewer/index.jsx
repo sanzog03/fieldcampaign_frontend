@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Ion } from 'cesium';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
-import { initializeCZMLViewer } from './CZMLViewer';
+import { initializeCZMLViewer } from './viewers/CZMLViewer';
 
 export class FCXViewer extends Component {
     constructor(props) {
