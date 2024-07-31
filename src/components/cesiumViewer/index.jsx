@@ -8,14 +8,26 @@ import { MapMenu } from "./menu";
 export class FCXViewer extends Component {
     constructor(props) {
         super(props);
-        this.state = { currentViewer: null };
+        this.state = {
+            currentViewer: null,
+            currentEntity: null,
+            trackAircraft: true
+        };
         this.setCurrentViewer = this.setCurrentViewer.bind(this);
+        this.setTrackAircraft = this.setTrackAircraft.bind(this);
+        this.trackEntity = this.trackEntity.bind(this);
         this.implementationHandler = this.implementationHandler.bind(this);
     }
 
     componentDidMount() {
         Ion.defaultAccessToken = process.env.REACT_APP_CESIUM_DEFAULT_ACCESS_TOKEN;
         this.implementationHandler();
+    }
+
+    componentWillUpdate(nextProps, nextState) {
+        if (this.state.trackAircraft !== nextState.trackAircraft) {
+            this.trackEntity(nextState);
+        }
     }
 
     implementationHandler() {
@@ -32,6 +44,29 @@ export class FCXViewer extends Component {
         this.setState({currentViewer: viewer});
     }
 
+    setTrackAircraft(track) {
+        this.setState({trackAircraft: track});
+    }
+
+    trackEntity(state) {
+        let { trackAircraft } = state;
+        // if no current entity instance stored, store it.
+        if (!state.currentEntity && state.currentViewer.trackedEntity) {
+            this.setState({currentEntity: state.currentViewer.trackedEntity}).then(() => {
+                if (trackAircraft && state.currentViewer && state.currentEntity) {
+                    state.currentViewer.trackedEntity = state.currentEntity;
+                } else if (!trackAircraft && state.currentViewer) {
+                    state.currentViewer.trackedEntity = null;
+                }
+            });
+        }
+        else if (trackAircraft && state.currentViewer && state.currentEntity) {
+            state.currentViewer.trackedEntity = state.currentEntity;
+        } else if (!trackAircraft && state.currentViewer) {
+            state.currentViewer.trackedEntity = null;
+        }
+    }
+
     render() {
       return (
         <React.Fragment>
@@ -42,7 +77,7 @@ export class FCXViewer extends Component {
                     </Grid>
                 </Grid>
             </Box>
-            <MapMenu />
+            <MapMenu trackAircraft={this.state.trackAircraft} setTrackAircraft={this.setTrackAircraft}/>
         </React.Fragment>
       )
     }

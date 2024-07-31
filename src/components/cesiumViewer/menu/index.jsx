@@ -8,10 +8,8 @@ import { TrackFlightSwitch } from "./helpers/trackFlight";
 
 import "./index.css";
 
-export function MapMenu() {
+export function MapMenu({trackAircraft, setTrackAircraft}) {
   const [anchorEl, setAnchorEl] = useState(null);
-  const [trackAircraft, setTrackAircraft] = useState(true);
-
 
   const open = Boolean(anchorEl);
   const handleClick = (event) => {

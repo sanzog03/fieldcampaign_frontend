@@ -13,12 +13,17 @@ export function initializeCZMLViewer(setCurrentViewer) {
      * @param  {function} setCurrentViewer  A function that takes `viewer` as a parameter. Used to keep track of current viewer for later removal in parent scope.
      */
     const czmlViewer = new CZMLViewer();
-    setCurrentViewer(czmlViewer.viewer);
     const czmlDataUrl = noaaczml
     czmlViewer.loadDataIntoViewer(czmlDataUrl);
+    setCurrentViewer(czmlViewer.viewer);
 }
 
 class CZMLViewer extends DataViewer {
+    constructor() {
+        super();
+        this.flightEntity = null;
+    }
+
     loadDataIntoViewer(czmlDataUrl) {
         CzmlDataSource.load(czmlDataUrl)
         .then(async (dataSource) => {
@@ -34,8 +39,6 @@ class CZMLViewer extends DataViewer {
                 this.viewer.trackedEntity = flightEntity;
                 // fix orientation
                 flightEntity.orientation = new CallbackProperty((time, _result) => fixOrientation(flightEntity, time), false);
-
-
             }
         });
     }
