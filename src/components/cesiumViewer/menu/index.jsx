@@ -1,7 +1,6 @@
 import { useState} from 'react';
 import Menu from '@mui/material/Menu';
 import FlightTakeoffTwoToneIcon from '@mui/icons-material/FlightTakeoffTwoTone';
-import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 
 import { TrackFlightSwitch } from "./helpers/trackFlight";
@@ -39,12 +38,12 @@ export function MapMenu({trackAircraft, setTrackAircraft}) {
           'aria-labelledby': 'basic-button',
         }}
       >
-        <Paper id="map-menu-items">
+        <div id="map-menu-items">
           <Typography variant="h7" component="div">
             Aircraft Controls
           </Typography>
           <TrackFlightSwitch checked={trackAircraft} setChecked={setTrackAircraft}/>
-        </Paper>
+        </div>
       </Menu>
     </div>
   );
