@@ -52,7 +52,7 @@ export class FCXViewer extends Component {
         let { trackAircraft } = state;
         // if no current entity instance stored, store it.
         if (!state.currentEntity && state.currentViewer.trackedEntity) {
-            this.setState({currentEntity: state.currentViewer.trackedEntity}).then(() => {
+            this.setState({currentEntity: state.currentViewer.trackedEntity}, () => {
                 if (trackAircraft && state.currentViewer && state.currentEntity) {
                     state.currentViewer.trackedEntity = state.currentEntity;
                 } else if (!trackAircraft && state.currentViewer) {
