@@ -1,11 +1,9 @@
-import { CzmlDataSource, HeadingPitchRange, Math, Cartesian3, JulianDate, Ellipsoid,
+import { CzmlDataSource, HeadingPitchRange, Math, Cartesian3, JulianDate, TimeStandard, Ellipsoid,
          VelocityOrientationProperty, PointPrimitiveCollection, PolylineGlowMaterialProperty, Color } from 'cesium';
 import { store } from "../../../../store"; 
 import { updateData } from "../../cesiumViewerSlice";
 import { DataViewer } from '../utils/dataViewer';
 import noaaczml from '../../../../assets/data/nav_czml.czml';
-
-let previousTime = null;
 
 export function initializeCZMLViewer(setCurrentViewer) {
     /**
@@ -24,6 +22,7 @@ class CZMLViewer extends DataViewer {
         this.flightEntity = null;
         this.points = null;
         this.concentrationThreshold = 420; //ppm
+        this.previousTime = new JulianDate();
     }
 
     loadDataIntoViewer(czmlDataUrl) {
@@ -62,38 +61,38 @@ class CZMLViewer extends DataViewer {
                 // add point primitives to the viewer scene
                 let scene = this.viewer.scene;
                 this.points = scene.primitives.add(new PointPrimitiveCollection());
-                console.log("@@@@@@@", this.points)
             }
         });
     }
 
     updateConcentrationData(entity, time) {
-        const position = entity.position.getValue(time);
-
-        var carto = Ellipsoid.WGS84.cartesianToCartographic(position);
-        var altitude = carto.height;
-
-        let { co2 } = entity.properties.getValue(time);
-
-        if ( Number(co2) >= this.concentrationThreshold && this.points) {
-            // show red blobs point primitives in the map
-            this.points.add({
-                position: position,
-                color: Color.RED,
-                pixelSize: 20
-            })
-        }
-
         // only on time change.
-        if (previousTime !== time) {
+        // julian time will return 0 if both time are same
+        if (JulianDate.compare(this.previousTime, time) !== 0) {
+            const position = entity.position.getValue(time);
+            let carto = Ellipsoid.WGS84.cartesianToCartographic(position);
+            let altitude = carto.height;
+            let { co2 } = entity.properties.getValue(time);
             let formattedDateTime = JulianDate.toIso8601(time);
 
+            if ( Number(co2) >= this.concentrationThreshold && this.points) {
+                // show red blobs point primitives in the map
+                this.points.add({
+                    position: position,
+                    color: Color.RED,
+                    pixelSize: 20
+                })
+            }
+
+            // update data in redux store for chart to access
             store.dispatch(updateData({
                 datetime: formattedDateTime,
                 altitude: parseFloat(altitude.toFixed(2)),
                 value: parseFloat(co2.toFixed(2))
             }))
-            previousTime = time;
+
+            // at the end of this criteria
+            this.previousTime = time;
         }
     }
 }
