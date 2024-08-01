@@ -1,5 +1,5 @@
-import { CzmlDataSource, HeadingPitchRange, Math, HeadingPitchRoll,
-         Transforms, CallbackProperty, Cartesian3, JulianDate, Ellipsoid } from 'cesium';
+import { CzmlDataSource, HeadingPitchRange, Math, Cartesian3, JulianDate, Ellipsoid,
+         VelocityOrientationProperty, PolylineGlowMaterialProperty, Color } from 'cesium';
 import { store } from "../../../../store"; 
 import { updateData } from "../../cesiumViewerSlice";
 import { DataViewer } from '../utils/dataViewer';
@@ -30,36 +30,46 @@ class CZMLViewer extends DataViewer {
             this.viewer.dataSources.add(dataSource);
             // zoom to entity
             this.viewer.zoomTo(dataSource,  new HeadingPitchRange(0, Math.toRadians(-10), 40000));
+            // this.viewer.clock.multiplier = 60;
 
             // only apply to czml for flight entities
             const flightEntity = dataSource.entities.getById("Flight Track");
             if (flightEntity) {
+                // // Experimental feature to fade out path:
+                // flightEntity.path = {
+                //     show : true,
+                //     leadTime : 0
+                //     trailTime : 60000000,
+                //     width : 10,
+                //     resolution : 1,
+                //     material : new PolylineGlowMaterialProperty({
+                //         glowPower : 0.8,
+                //         taperPower : 0.1,
+                //         color : Color.PALEGOLDENROD
+                //     })
+                // }
+
+                // set orientation: by evaluating to a Quaternion rotation based on the velocity of the provided PositionProperty.
+                flightEntity.orientation = new VelocityOrientationProperty(flightEntity.position);
+                // set camera
                 flightEntity.viewFrom = new Cartesian3(-30000, -70000, 50000);
                 // track entity
                 this.viewer.trackedEntity = flightEntity;
-                // fix orientation
-                flightEntity.orientation = new CallbackProperty((time, _result) => fixOrientation(flightEntity, time), false);
+                // update data and clock information in redux, to be used by chart
+                this.viewer.clock.onTick.addEventListener((clock) => updateConcentrationData(flightEntity, clock.currentTime));
             }
         });
     }
 }
 
-function fixOrientation(entity, time) {
+function updateConcentrationData(entity, time) {
     const position = entity.position.getValue(time);
 
     var carto = Ellipsoid.WGS84.cartesianToCartographic(position);
     // var altitude = Math.toDegrees(carto.height);
     var altitude = carto.height;
 
-    let { heading, pitch, roll, co2, ch4, correctionOffsets } = entity.properties.getValue(time);
-    // only the heading should change with respect to the position.
-    if(!correctionOffsets) {
-        correctionOffsets = {
-            heading: 0,
-            pitch: 0,
-            roll: 0
-        }
-    }
+    let { co2 } = entity.properties.getValue(time);
 
     let formattedDateTime = JulianDate.toIso8601(time);
 
@@ -72,15 +82,4 @@ function fixOrientation(entity, time) {
         }))
         previousTime = formattedDateTime;
     }
-
-    // fix the pitch and roll rotations
-    heading = heading + Math.toRadians(correctionOffsets.heading);
-    pitch = pitch + Math.toRadians(correctionOffsets.pitch);
-    roll = roll + Math.toRadians(correctionOffsets.roll);
-    const hpr = new HeadingPitchRoll(heading, pitch, roll);
-    const fixedOrientation = Transforms.headingPitchRollQuaternion(
-        position,
-        hpr
-    );
-    return fixedOrientation;
 }
