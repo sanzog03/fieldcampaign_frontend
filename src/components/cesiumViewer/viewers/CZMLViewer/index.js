@@ -1,5 +1,5 @@
 import { CzmlDataSource, HeadingPitchRange, Math, Cartesian3, JulianDate, Ellipsoid,
-         VelocityOrientationProperty, PolylineGlowMaterialProperty, Color } from 'cesium';
+         VelocityOrientationProperty, PointPrimitiveCollection, PolylineGlowMaterialProperty, Color } from 'cesium';
 import { store } from "../../../../store"; 
 import { updateData } from "../../cesiumViewerSlice";
 import { DataViewer } from '../utils/dataViewer';
@@ -22,6 +22,8 @@ class CZMLViewer extends DataViewer {
     constructor() {
         super();
         this.flightEntity = null;
+        this.points = null;
+        this.concentrationThreshold = 420; //ppm
     }
 
     loadDataIntoViewer(czmlDataUrl) {
@@ -56,30 +58,42 @@ class CZMLViewer extends DataViewer {
                 // track entity
                 this.viewer.trackedEntity = flightEntity;
                 // update data and clock information in redux, to be used by chart
-                this.viewer.clock.onTick.addEventListener((clock) => updateConcentrationData(flightEntity, clock.currentTime));
+                this.viewer.clock.onTick.addEventListener((clock) => this.updateConcentrationData(flightEntity, clock.currentTime));
+                // add point primitives to the viewer scene
+                let scene = this.viewer.scene;
+                this.points = scene.primitives.add(new PointPrimitiveCollection());
+                console.log("@@@@@@@", this.points)
             }
         });
     }
-}
 
-function updateConcentrationData(entity, time) {
-    const position = entity.position.getValue(time);
+    updateConcentrationData(entity, time) {
+        const position = entity.position.getValue(time);
 
-    var carto = Ellipsoid.WGS84.cartesianToCartographic(position);
-    // var altitude = Math.toDegrees(carto.height);
-    var altitude = carto.height;
+        var carto = Ellipsoid.WGS84.cartesianToCartographic(position);
+        var altitude = carto.height;
 
-    let { co2 } = entity.properties.getValue(time);
+        let { co2 } = entity.properties.getValue(time);
 
-    let formattedDateTime = JulianDate.toIso8601(time);
+        if ( Number(co2) >= this.concentrationThreshold && this.points) {
+            // show red blobs point primitives in the map
+            this.points.add({
+                position: position,
+                color: Color.RED,
+                pixelSize: 20
+            })
+        }
 
-    // only on time change.
-    if (previousTime !== formattedDateTime) {
-        store.dispatch(updateData({
-            datetime: formattedDateTime,
-            altitude: parseFloat(altitude.toFixed(2)),
-            value: parseFloat(co2.toFixed(2))
-        }))
-        previousTime = formattedDateTime;
+        // only on time change.
+        if (previousTime !== time) {
+            let formattedDateTime = JulianDate.toIso8601(time);
+
+            store.dispatch(updateData({
+                datetime: formattedDateTime,
+                altitude: parseFloat(altitude.toFixed(2)),
+                value: parseFloat(co2.toFixed(2))
+            }))
+            previousTime = time;
+        }
     }
 }
