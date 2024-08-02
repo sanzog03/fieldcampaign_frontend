@@ -1,7 +1,11 @@
+import Paper from '@mui/material/Paper';
+
+import "./index.css";
+
 export function Title () {
     return (
-        <div id="title">
-            <strong>NOAA: Airborne Viewer</strong>
-        </div>
+        <Paper id="title" elevation={3}>
+            <h3>NOAA: Airborne Viewer</h3>
+        </Paper>
     );
 }
